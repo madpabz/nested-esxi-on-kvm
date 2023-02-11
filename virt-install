@@ -1,0 +1,7 @@
+virt-install --install bootdev=cdrom --virt-type  kvm --hvm --name compute1 --os-variant=rhel9.0 \
+--vcpus=28,maxvcpus=28,sockets=7,cores=4,threads=1 --accelerate --features kvm_hidden=on --cpu host-passthrough --ram 65536 \
+--disk pool=lab0,size=764,format=qcow2,sparse=true,bus=sata,format=qcow2,io='native',cache='none',discard='unmap' --check disk_size=off \
+--disk /tools/isos/compute1.iso,bus=ide,device=cdrom \
+--graphics vnc --video qxl \
+--network bridge:bridge0,model=vmxnet3,mac=52:54:00:ab:01:01 --network bridge:bridge1,model=vmxnet3,mac=52:54:00:ab:01:02 --network bridge:bridge2,model=vmxnet3,mac=52:54:00:ab:01:03 \
+--sysinfo=host --metadata title='compute1' --machine=pc --boot=hd,cdrom,menu=on  --noautoconsole --wait -1  >> /tmp/compute1.log 2>&1 & disown
